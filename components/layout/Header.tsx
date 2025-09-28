@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect, useRef } from 'react';
-import { SearchIcon, BellIcon, MailIcon, MenuIcon, ChevronDownIcon, UserCircleIcon, SettingsIcon, LogoutIcon } from '../icons/Icons';
-import { ViewType } from '../../App';
+import { SearchIcon, BellIcon, MailIcon, MenuIcon, ChevronDownIcon, UserCircleIcon, SettingsIcon, LogoutIcon, SunIcon, MoonIcon } from '../icons/Icons';
+import { ViewType, Theme } from '../../App';
 import { Notification } from '../../types';
 import { mockNotifications } from '../notifications/data';
 import { mockEmails } from '../email/data';
@@ -30,16 +31,20 @@ interface HeaderProps {
   onMenuClick: () => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ currentView, setCurrentView, onMenuClick, searchQuery, setSearchQuery }) => {
+const Header: React.FC<HeaderProps> = ({ currentView, setCurrentView, onMenuClick, searchQuery, setSearchQuery, theme, setTheme }) => {
   const pageTitle = viewTitles[currentView] || 'Dashboard';
   const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
   
   const notificationRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
+  const themeRef = useRef<HTMLDivElement>(null);
 
   const unreadNotifications = notifications.filter(n => !n.read).length;
   const unreadEmails = mockEmails.filter(e => e.to.email === 'admin@corporatesaathi.com' && !e.read).length;
@@ -51,6 +56,9 @@ const Header: React.FC<HeaderProps> = ({ currentView, setCurrentView, onMenuClic
       }
       if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
         setIsProfileMenuOpen(false);
+      }
+       if (themeRef.current && !themeRef.current.contains(event.target as Node)) {
+        setIsThemeMenuOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -81,6 +89,31 @@ const Header: React.FC<HeaderProps> = ({ currentView, setCurrentView, onMenuClic
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
           />
+        </div>
+
+        <div className="relative" ref={themeRef}>
+          <button
+              onClick={() => setIsThemeMenuOpen(p => !p)}
+              className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition"
+              aria-label="Choose theme"
+          >
+              <SunIcon className="w-6 h-6 hidden dark:block" />
+              <MoonIcon className="w-6 h-6 block dark:hidden" />
+          </button>
+          {isThemeMenuOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border dark:border-gray-700 z-50 animate-fade-in-down py-2">
+                  <button onClick={() => { setTheme('light'); setIsThemeMenuOpen(false); }} className={`flex items-center gap-3 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 ${theme === 'light' ? 'font-semibold text-primary' : ''}`}>
+                      <SunIcon className="w-5 h-5" /> Light
+                  </button>
+                  <button onClick={() => { setTheme('dark'); setIsThemeMenuOpen(false); }} className={`flex items-center gap-3 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 ${theme === 'dark' ? 'font-semibold text-primary' : ''}`}>
+                      <MoonIcon className="w-5 h-5" /> Dark
+                  </button>
+                  <button onClick={() => { setTheme('system'); setIsThemeMenuOpen(false); }} className={`flex items-center gap-3 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 ${theme === 'system' ? 'font-semibold text-primary' : ''}`}>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                      System
+                  </button>
+              </div>
+          )}
         </div>
 
         <div className="relative" ref={notificationRef}>

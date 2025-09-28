@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
-import { ViewType } from '../../App';
+import { ViewType, Theme } from '../../App';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -9,9 +10,11 @@ interface MainLayoutProps {
   setCurrentView: (view: ViewType) => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children, currentView, setCurrentView, searchQuery, setSearchQuery }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({ children, currentView, setCurrentView, searchQuery, setSearchQuery, theme, setTheme }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
@@ -29,6 +32,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, currentView, setCurre
           onMenuClick={() => setIsSidebarOpen(true)}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          theme={theme}
+          setTheme={setTheme}
         />
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-background dark:bg-gray-900 p-4 sm:p-6 lg:p-8">
           {children}

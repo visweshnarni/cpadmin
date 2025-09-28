@@ -79,7 +79,7 @@ const App: React.FC = () => {
       case 'audit':
         return <AuditLogView searchQuery={searchQuery}/>;
       case 'settings':
-        return <SettingsView theme={theme} setTheme={setTheme} />;
+        return <SettingsView />;
       default:
         return <DashboardView effectiveTheme={effectiveTheme} setCurrentView={setCurrentView} />;
     }
@@ -92,6 +92,8 @@ const App: React.FC = () => {
         setCurrentView={setCurrentView}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        theme={theme}
+        setTheme={setTheme}
       >
         {renderView()}
       </MainLayout>

@@ -1,13 +1,9 @@
+
 import React from 'react';
 import { Theme } from '../../App';
 import { UserCircleIcon, LockClosedIcon, BellIcon, SunIcon, MoonIcon, TrashIcon, DownloadIcon } from '../icons/Icons';
 
-interface Props {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
-}
-
-const SettingsView: React.FC<Props> = ({ theme, setTheme }) => {
+const SettingsView: React.FC = () => {
     const [notifications, setNotifications] = React.useState({ email: true, push: false });
 
     const ToggleSwitch: React.FC<{ enabled: boolean; onChange: (enabled: boolean) => void }> = ({ enabled, onChange }) => (
@@ -62,48 +58,29 @@ const SettingsView: React.FC<Props> = ({ theme, setTheme }) => {
                 </form>
             </div>
 
-            {/* Notification and Theme Settings */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
-                    <h3 className="text-lg font-bold text-text-primary dark:text-gray-200 flex items-center gap-2 mb-4">
-                        <BellIcon /> Notifications
-                    </h3>
-                    <div className="space-y-4">
-                        <div className="flex justify-between items-center">
-                            <div>
-                                <p className="font-medium text-text-primary dark:text-gray-200">Email Notifications</p>
-                                <p className="text-sm text-text-secondary dark:text-gray-400">Receive updates and alerts via email.</p>
-                            </div>
-                            <ToggleSwitch enabled={notifications.email} onChange={(val) => setNotifications(p => ({...p, email: val}))} />
+            {/* Notification Settings */}
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                <h3 className="text-lg font-bold text-text-primary dark:text-gray-200 flex items-center gap-2 mb-4">
+                    <BellIcon /> Notifications
+                </h3>
+                <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <p className="font-medium text-text-primary dark:text-gray-200">Email Notifications</p>
+                            <p className="text-sm text-text-secondary dark:text-gray-400">Receive updates and alerts via email.</p>
                         </div>
-                        <div className="flex justify-between items-center">
-                            <div>
-                                <p className="font-medium text-text-primary dark:text-gray-200">Push Notifications</p>
-                                <p className="text-sm text-text-secondary dark:text-gray-400">Get notified directly in your browser.</p>
-                            </div>
-                            <ToggleSwitch enabled={notifications.push} onChange={(val) => setNotifications(p => ({...p, push: val}))} />
-                        </div>
+                        <ToggleSwitch enabled={notifications.email} onChange={(val) => setNotifications(p => ({...p, email: val}))} />
                     </div>
-                </div>
-                 <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
-                    <h3 className="text-lg font-bold text-text-primary dark:text-gray-200 mb-4">Theme</h3>
-                    <div className="flex items-center justify-around gap-2">
-                        <button onClick={() => setTheme('light')} className={`flex flex-col items-center gap-2 p-3 rounded-lg border-2 ${theme === 'light' ? 'border-primary bg-blue-50 dark:bg-blue-900/50' : 'border-transparent'} hover:border-primary`}>
-                            <SunIcon className="w-8 h-8 text-yellow-500" />
-                            <span className="text-sm font-semibold">Light</span>
-                        </button>
-                        <button onClick={() => setTheme('dark')} className={`flex flex-col items-center gap-2 p-3 rounded-lg border-2 ${theme === 'dark' ? 'border-primary bg-blue-50 dark:bg-blue-900/50' : 'border-transparent'} hover:border-primary`}>
-                            <MoonIcon className="w-8 h-8 text-indigo-500" />
-                            <span className="text-sm font-semibold">Dark</span>
-                        </button>
-                         <button onClick={() => setTheme('system')} className={`flex flex-col items-center gap-2 p-3 rounded-lg border-2 ${theme === 'system' ? 'border-primary bg-blue-50 dark:bg-blue-900/50' : 'border-transparent'} hover:border-primary`}>
-                            <svg className="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            <span className="text-sm font-semibold">System</span>
-                        </button>
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <p className="font-medium text-text-primary dark:text-gray-200">Push Notifications</p>
+                            <p className="text-sm text-text-secondary dark:text-gray-400">Get notified directly in your browser.</p>
+                        </div>
+                        <ToggleSwitch enabled={notifications.push} onChange={(val) => setNotifications(p => ({...p, push: val}))} />
                     </div>
                 </div>
             </div>
-
+            
             {/* Account Actions */}
              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
                 <h3 className="text-lg font-bold text-red-600 flex items-center gap-2 mb-4">

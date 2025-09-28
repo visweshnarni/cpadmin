@@ -1,12 +1,18 @@
+
 import React from 'react';
 import { ProjectIcon, ServiceIcon, PayrollIcon, ReportIcon, ArrowRightIcon } from '../icons/Icons';
+import { ViewType } from '../../App';
 
-const QuickAccessPanel: React.FC = () => {
+interface QuickAccessPanelProps {
+  setCurrentView: (view: ViewType) => void;
+}
+
+const QuickAccessPanel: React.FC<QuickAccessPanelProps> = ({ setCurrentView }) => {
   const panels = [
-    { name: 'Project Management', icon: <ProjectIcon />, color: 'text-blue-500' },
-    { name: 'Service Management', icon: <ServiceIcon />, color: 'text-yellow-500' },
-    { name: 'Payroll', icon: <PayrollIcon />, color: 'text-green-500' },
-    { name: 'Generate Reports', icon: <ReportIcon />, color: 'text-indigo-500' },
+    { name: 'Project Management', view: 'projects', icon: <ProjectIcon />, color: 'text-blue-500' },
+    { name: 'Service Management', view: 'services', icon: <ServiceIcon />, color: 'text-yellow-500' },
+    { name: 'Payroll', view: 'payroll', icon: <PayrollIcon />, color: 'text-green-500' },
+    { name: 'Generate Reports', view: 'reports', icon: <ReportIcon />, color: 'text-indigo-500' },
   ];
 
   return (
@@ -17,6 +23,10 @@ const QuickAccessPanel: React.FC = () => {
           <a
             key={panel.name}
             href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              setCurrentView(panel.view as ViewType);
+            }}
             className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-gray-100 hover:shadow-sm transition-all duration-200"
           >
             <div className="flex items-center min-w-0">

@@ -53,7 +53,7 @@ const App: React.FC = () => {
   const renderView = () => {
     switch (currentView) {
       case 'dashboard':
-        return <DashboardView effectiveTheme={effectiveTheme} />;
+        return <DashboardView effectiveTheme={effectiveTheme} setCurrentView={setCurrentView} />;
       case 'projects':
         return <ProjectManagementView searchQuery={searchQuery} />;
       case 'services':
@@ -81,7 +81,7 @@ const App: React.FC = () => {
       case 'settings':
         return <SettingsView theme={theme} setTheme={setTheme} />;
       default:
-        return <DashboardView effectiveTheme={effectiveTheme} />;
+        return <DashboardView effectiveTheme={effectiveTheme} setCurrentView={setCurrentView} />;
     }
   };
 

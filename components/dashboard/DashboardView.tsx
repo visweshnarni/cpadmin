@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import KPICard from './KPICard';
 import AttendanceChart from './charts/AttendanceChart';
@@ -10,13 +11,14 @@ import NewClientsChart from './charts/NewClientsChart';
 import QuickAccessPanel from './QuickAccessPanel';
 import AnnouncementsFeed from './AnnouncementsFeed';
 import { ProjectIcon, ServiceIcon, EmployeeIcon, RevenueIcon } from '../icons/Icons';
-import { Theme } from '../../App';
+import { Theme, ViewType } from '../../App';
 
 interface Props {
   effectiveTheme: 'light' | 'dark';
+  setCurrentView: (view: ViewType) => void;
 }
 
-const DashboardView: React.FC<Props> = ({ effectiveTheme }) => {
+const DashboardView: React.FC<Props> = ({ effectiveTheme, setCurrentView }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'charts'>('overview');
 
   const TabButton: React.FC<{ tabName: 'overview' | 'charts'; label: string }> = ({ tabName, label }) => (
@@ -55,7 +57,7 @@ const DashboardView: React.FC<Props> = ({ effectiveTheme }) => {
           </div>
           
           {/* Quick Access */}
-          <QuickAccessPanel />
+          <QuickAccessPanel setCurrentView={setCurrentView} />
 
           {/* Main content for overview */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

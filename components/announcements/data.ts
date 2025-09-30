@@ -25,6 +25,7 @@ export const mockAnnouncements: Announcement[] = [
     date: new Date(now.getTime() - 1 * 24 * 60 * 60 * 1000).toISOString(),
     audience: 'Company-Wide',
     priority: 'Normal',
+    imageUrl: 'https://picsum.photos/seed/performance/800/400',
   },
   {
     id: 'anno-3',

@@ -111,6 +111,7 @@ export interface Announcement {
   date: string; // ISO string
   audience: 'Company-Wide' | Department;
   priority: 'Normal' | 'Urgent';
+  imageUrl?: string;
 }
 
 export interface Email {

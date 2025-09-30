@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const leaveData = [
@@ -10,14 +9,14 @@ const leaveData = [
 ];
 
 const statusStyles = {
-  Pending: 'bg-yellow-100 text-yellow-800',
-  Approved: 'bg-green-100 text-green-800',
+  Pending: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300',
+  Approved: 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300',
 };
 
 const LeaveRequests: React.FC = () => {
   return (
     <div className="flow-root">
-      <ul role="list" className="divide-y divide-gray-200">
+      <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
         {leaveData.map((request) => (
           <li key={request.id} className="py-4">
             <div className="flex items-center space-x-4">
@@ -25,8 +24,8 @@ const LeaveRequests: React.FC = () => {
                 <img className="h-8 w-8 rounded-full" src={request.avatar} alt={request.name} />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">{request.name}</p>
-                <p className="text-sm text-gray-500 truncate">{request.dates}</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{request.name}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{request.dates}</p>
               </div>
               <div>
                 <span
